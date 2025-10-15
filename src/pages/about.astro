@@ -26,7 +26,8 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 
 import "../styles/global.css";
-import Navigation from "../components/Navigation.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <html lang="en">
@@ -47,7 +48,7 @@ import Navigation from "../components/Navigation.astro";
     </style>
   </head>
   <body>
-    <Navigation />
+    <Header />
 
     <h1>{pageTitle}</h1>
     <h2>... and my new Astro site!</h2>
@@ -93,5 +94,6 @@ import Navigation from "../components/Navigation.astro";
         <p>My goal is not 3 days.</p>
       )
     }
+    <Footer />
   </body>
 </html>
