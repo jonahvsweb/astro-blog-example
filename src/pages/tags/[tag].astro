@@ -6,15 +6,19 @@ export async function getStaticPaths() {
   const allPosts = Object.values(
     import.meta.glob("../posts/*.md", { eager: true })
   );
+  const uniqueTags = [
+    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+  ]; // Scan all tags used in posts, combine into a single array and remove duplicates.
 
-  return [
-    { params: { tag: "astro" }, props: { posts: allPosts } },
-    { params: { tag: "successes" }, props: { posts: allPosts } },
-    { params: { tag: "community" }, props: { posts: allPosts } },
-    { params: { tag: "blogging" }, props: { posts: allPosts } },
-    { params: { tag: "setbacks" }, props: { posts: allPosts } },
-    { params: { tag: "learning in public" }, props: { posts: allPosts } },
-  ];
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
 }
 
 const { tag } = Astro.params;
@@ -28,7 +32,7 @@ const filteredPosts = posts.filter((post: any) =>
   <p>Posts tagged with {tag}</p>
   <ul>
     {
-      filteredPosts.map((post: any) => (
+      posts.map((post: any) => (
         <BlogPost url={post.url} title={post.frontmatter.title} />
       ))
     }
