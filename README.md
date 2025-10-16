@@ -1,3 +1,7 @@
+# UPDATE: Tutorial Complete
+
+[view the demo site](https://astroexampleblog-0394.netlify.app/)
+
 # Astro Starter Kit: Minimal
 
 ```sh
